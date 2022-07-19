@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Produktivkeller.SimpleLocalization.Code_Patterns
+namespace Produktivkeller.SimpleCodePatterns.Singleton
 {
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Component
     {
@@ -19,7 +19,7 @@ namespace Produktivkeller.SimpleLocalization.Code_Patterns
                 Instance = this as T;
                 transform.SetParent(null);
                 DontDestroyOnLoad(this);
-                Initialize(); 
+                Initialize();
             }
         }
     }

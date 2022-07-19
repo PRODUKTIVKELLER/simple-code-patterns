@@ -1,0 +1,16 @@
+{
+  "name": "com.produktivkeller.simple-code-patterns",
+  "version": "0.1.0",
+  "displayName": "Simple Code Patterns",
+  "description": "A collection of code patterns for C# Unity.",
+  "documentationUrl": "https://github.com/PRODUKTIVKELLER/simple-code-patterns",
+  "keywords": [
+    "simple",
+    "unity"
+  ],
+  "author": {
+    "name": "PRODUKTIVKELLER Studios",
+    "email": "info@produktivkeller.com",
+    "url": "https://www.produktivkeller.com"
+  }
+}

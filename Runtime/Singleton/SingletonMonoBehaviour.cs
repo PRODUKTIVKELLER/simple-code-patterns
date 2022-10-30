@@ -6,7 +6,14 @@ namespace Produktivkeller.SimpleCodePatterns.Singleton
     {
         public static T Instance { get; private set; }
 
-        protected abstract void Initialize();
+        protected virtual void Initialize()
+        {
+        }
+
+        protected virtual bool ShouldDestroyOnLoad()
+        {
+            return false;
+        }
 
         public virtual void Awake()
         {
@@ -17,8 +24,13 @@ namespace Produktivkeller.SimpleCodePatterns.Singleton
             else
             {
                 Instance = this as T;
-                transform.SetParent(null);
-                DontDestroyOnLoad(this);
+
+                if (!ShouldDestroyOnLoad())
+                {
+                    transform.SetParent(null);
+                    DontDestroyOnLoad(this);
+                }
+
                 Initialize();
             }
         }

@@ -34,5 +34,13 @@ namespace Produktivkeller.SimpleCodePatterns.Singleton
                 Initialize();
             }
         }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
     }
 }

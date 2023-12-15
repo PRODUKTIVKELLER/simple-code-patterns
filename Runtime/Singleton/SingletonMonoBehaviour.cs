@@ -5,26 +5,17 @@ namespace Produktivkeller.SimpleCodePatterns.Singleton
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Component
     {
         public static T Instance { get; private set; }
-        
-        /**
-         * Reset the instance field even if 'Domain Reload' is disabled in the player settings.
-         *
-         * https://docs.unity3d.com/Manual/DomainReloading.html
-         */
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetEvenWithoutDomainReload()
-        {
-            if (!Instance)
-            {
-                return;
-            }
 
-            SingletonMonoBehaviour<T> singletonMonoBehaviour = Instance as SingletonMonoBehaviour<T>;
-            
-            if (singletonMonoBehaviour && singletonMonoBehaviour.ShouldResetEvenWithoutDomainReload())
-            {
-                Instance = null;
-            }
+        /**
+         * Useful to reset the instance in a static method with [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+         * when 'Domain Reload' is disabled as documented in https://docs.unity3d.com/Manual/DomainReloading.html.
+         *
+         * We can't use a static method in the parent class 'SingletonMonoBehaviour' as the static method will not be called for child classes:
+         * https://forum.unity.com/threads/runtimeinitializeonloadmethod-doesnt-run-on-children.790130/
+         */
+        protected void ResetInstance()
+        {
+            Instance = null;
         }
 
         protected virtual void Initialize()
@@ -34,11 +25,6 @@ namespace Produktivkeller.SimpleCodePatterns.Singleton
         protected virtual bool ShouldDestroyOnLoad()
         {
             return false;
-        }
-
-        protected virtual bool ShouldResetEvenWithoutDomainReload()
-        {
-            return true;
         }
 
         public virtual void Awake()
